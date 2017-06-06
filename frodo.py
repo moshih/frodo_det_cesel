@@ -833,9 +833,9 @@ def test():
     
    
     #this is what alice does
-    alice=0;
-    bob_p1=0;
-    bob_p2=0;
+    alice=1;
+    bob_p1=1;
+    bob_p2=1;
     bob_p3=1;
     if 1==alice:
         getb_part1(p,result,inputa,inputb,temp,calca)
