@@ -758,7 +758,7 @@ def rec_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,cal
     i.step()
     i.regfile[calcc]=[2047&255 for x in range(0,32)]
     for x in range(0,16):
-        i.regfile[calcb][2*x]=2047>>8
+        i.regfile[calcc][2*x]=2047>>8
     greater_than_part2(i,calcb,calcc,want_high,calcf,calcg,calch,calcdi)
      #calcb=w%4096
     i.regfile[calcc]=[0 for x in range(0,32)]
