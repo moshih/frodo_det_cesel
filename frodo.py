@@ -744,7 +744,7 @@ def rec_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,cal
     i.step()
     i.regfile[calcb]=[0 for x in range(0,32)]
     for x in range(0,16):
-        calcb[2*x+1]=1
+        i.regfile[calcb][2*x+1]=1
     i.step()
     i.step()
     i.step()
@@ -754,25 +754,25 @@ def rec_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,cal
     
     i.regfile[calcb]=[255 for x in range(0,32)]
     for x in range(0,16):
-        calcb[2*x]=16
+        i.regfile[calcb][2*x]=16
     i.step()
     i.regfile[calcc]=[2047&255 for x in range(0,32)]
     for x in range(0,16):
-        calcb[2*x]=2047>>8
+        i.regfile[calcb][2*x]=2047>>8
     greater_than_part2(i,calcb,calcc,want_high,calcf,calcg,calch,calcdi)
      #calcb=w%4096
     i.regfile[calcc]=[0 for x in range(0,32)]
     for x in range(0,16):
-        calcc[2*x+1]=1
+        i.regfile[calcc][2*x+1]=1
     i.regfile[calcd]=[0 for x in range(0,32)]
     
-def getka_part1(p,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi,v,k):
+def getka_part1(p,inputw,inputb,result,want_high,temp,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi,v,k):
     #load
     for row in range(0,4):
         #load
         rec_part1(p,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi)
         
-def getka_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi,v,k):
+def getka_part2(i,inputw,inputb,result,want_high,temp,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi,v,k):
     #############################
     #Matrix multiply
 
@@ -787,8 +787,8 @@ def getka_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,c
         #print(i.regfile[temp])
         rec_part2(i,inputw,inputb,result,want_high,calca,calcb,calcc,calcd,calce,calcf,calcg,calch,calcdi)
         #print_reg(i.regfile[result])
-        c[row]=np.copy(i.regfile[result][0:16])
-        c[row+1]=np.copy(i.regfile[result][16:32])
+        k[row]=np.copy(i.regfile[result][0:16])
+        k[row+1]=np.copy(i.regfile[result][16:32])
         
         
 def test():
@@ -851,7 +851,7 @@ def test():
     if 1==bob_p3:  
         getc_part1(p,result,temp,calca,v,c)
         getk_part1(p,result,temp,calca,v,k)
-        getka_part1(p,R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,v,k1)
+        getka_part1(p,R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,v,k1)
 
     #p.sum_reg(R0,R1,R2)
     #######################################################
@@ -889,7 +889,7 @@ def test():
         print_v(v);
         print_v(c);
         print_v(k);
-        getka_part1(p,R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,v,k1)
+        getka_part2(i,R0,R1,R2,R3,R4,R5,R6,R7,R8,R9,R10,R11,R12,R13,v,k1)
     #sp_mul_part2(i,inputa,inputb,temp,calca,row,col,A,sp)
     #print_reg(i.regfile[temp]);
     #print_v(v);
